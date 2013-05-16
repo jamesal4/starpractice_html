@@ -1,28 +1,28 @@
 define([], function() {
 	
-	var starbiochem_state = {};
+	var starpractice_state = {};
 
 	function parse_config(config_obj) 
 	{
-		starbiochem_state.width = config_obj.width ? config_obj.width : 300;
-		starbiochem_state.height = config_obj.height ? config_obj.height : 300;
-		starbiochem_state.color = config_obj.color ? config_obj.color : "green";
-		starbiochem_state.debug = false;
-		starbiochem_state.addSelectionOptions = false;
-		starbiochem_state.serverURL = "http://chemapps.stolaf.edu/jmol/jsmol/jsmol.php";
-		starbiochem_state.use = "HTML5";
-		starbiochem_state.j2sPath = "jsmol/j2s";
-		starbiochem_state.readyFunction = jmol_isReady;
-		starbiochem_state.script = "set antialiasDisplay;load jsmol/data/caffeine.mol;";
-		starbiochem_state.disableJ2SLoadMonitor = true;
-		starbiochem_state.disableInitialConsole = true;
+		starpractice_state.width = config_obj.width ? config_obj.width : 300;
+		starpractice_state.height = config_obj.height ? config_obj.height : 300;
+		starpractice_state.color = config_obj.color ? config_obj.color : "green";
+		starpractice_state.debug = false;
+		starpractice_state.addSelectionOptions = false;
+		starpractice_state.serverURL = "http://chemapps.stolaf.edu/jmol/jsmol/jsmol.php";
+		starpractice_state.use = "HTML5";
+		starpractice_state.j2sPath = "StarPractice/jsmol/j2s";
+		starpractice_state.readyFunction = jmol_isReady;
+		starpractice_state.script = "set antialiasDisplay;load StarPractice/jsmol/data/caffeine.mol;";
+		starpractice_state.disableJ2SLoadMonitor = true;
+		starpractice_state.disableInitialConsole = true;
 		
-		starbiochem_state.toggle = true;
-		starbiochem_state.element_id = config_obj.element_id;
-		starbiochem_state.element_id_starbiochem = config_obj.element_id + "_starbiochem";
-		starbiochem_state.element_id_starbiochem_jmol = config_obj.element_id + "_starbiochem_jmol";
-		starbiochem_state.element_id_starbiochem_ui = config_obj.element_id + "_starbiochem_ui";
-		starbiochem_state.element_id_starbiochem_ui_button = config_obj.element_id + "_starbiochem_ui_button";
+		starpractice_state.toggle = true;
+		starpractice_state.element_id = config_obj.element_id;
+		starpractice_state.element_id_starpractice = config_obj.element_id + "_starpractice";
+		starpractice_state.element_id_starpractice_jmol = config_obj.element_id + "_starpractice_jmol";
+		starpractice_state.element_id_starpractice_ui = config_obj.element_id + "_starpractice_ui";
+		starpractice_state.element_id_starpractice_ui_button = config_obj.element_id + "_starpractice_ui_button";
 	}
 
 	jmol_isReady = function(applet) 
@@ -62,7 +62,7 @@ define([], function() {
 //				setProperty(applet,"spacefill", "[THR]1:A.C", "0.8585");
 
 		
-		var viewer = starbiochem_state.jsmol;
+		var viewer = starpractice_state.jsmol;
 		Jmol.script (applet, "select " + myInfo[0].info + "; spacefill 0.8585;");
 
 		myInfo = Jmol.getPropertyAsArray(applet,"atomInfo","{*.C}");
@@ -135,7 +135,7 @@ define([], function() {
 		console.log(myInfo);
 
 //				getProperty fileContents <pathname>
-		myInfo = Jmol.getPropertyAsString(applet,"fileContents", "jsmol/data/1crn.pdb");
+		myInfo = Jmol.getPropertyAsString(applet,"fileContents", "StarPractice/jsmol/data/1crn.pdb");
 		console.info("\n fileContents");
 		console.log(myInfo);
 
@@ -258,26 +258,26 @@ define([], function() {
 //		myInfo = Jmol.getPropertyAsString(applet, )
 //		myInfo = Jmol.getValue(applet)
 
-		var ui = $('#' + starbiochem_state.element_id_starbiochem_ui);
-		ui.append(" <button id='" + starbiochem_state.element_id_starbiochem_ui_button + "'>starbiochem_button</button>");
-		initialize_starbiochem_UI_Behavior();
-		initialize_starbiochem_UI_LAF();
+		var ui = $('#' + starpractice_state.element_id_starpractice_ui);
+		ui.append(" <button id='" + starpractice_state.element_id_starpractice_ui_button + "'>starpractice_button</button>");
+		initialize_starpractice_UI_Behavior();
+		initialize_starpractice_UI_LAF();
 	}
 
-	function initialize_starbiochem_UI_Behavior()
+	function initialize_starpractice_UI_Behavior()
 	{
-		var button = $('#' + starbiochem_state.element_id_starbiochem_ui_button);
+		var button = $('#' + starpractice_state.element_id_starpractice_ui_button);
 		button.click(
 			function() 
 			{
-				var viewer = starbiochem_state.jsmol;
-				if(starbiochem_state.toggle) {
-					starbiochem_state.toggle = false;
+				var viewer = starpractice_state.jsmol;
+				if(starpractice_state.toggle) {
+					starpractice_state.toggle = false;
 					Jmol.script (viewer, "select *; rotate;");
 					Jmol.script (viewer, "select *; isosurface vdw;");		
 				}
 				else {
-					starbiochem_state.toggle = true;
+					starpractice_state.toggle = true;
 					Jmol.script (viewer, "select *; rotate 0;");
 					Jmol.script (viewer, "select *; isosurface DELETE;");
 				};
@@ -285,34 +285,34 @@ define([], function() {
 		);
 	}
 	
-	function initialize_starbiochem_UI_LAF() 
+	function initialize_starpractice_UI_LAF() 
 	{
-		var viewer = starbiochem_state.jsmol;
-		var button_addr = '#' + starbiochem_state.element_id_starbiochem_ui_button;
+		var viewer = starpractice_state.jsmol;
+		var button_addr = '#' + starpractice_state.element_id_starpractice_ui_button;
 		var button = $(button_addr);
 
-		var starbiochem_addr = '#' + starbiochem_state.element_id_starbiochem;
-		var starbiochem = $(starbiochem_addr);
-		starbiochem.append("<style>" + starbiochem_addr + " {border:'1px blue solid';}</style>");
+		var starpractice_addr = '#' + starpractice_state.element_id_starpractice;
+		var starpractice = $(starpractice_addr);
+		starpractice.append("<style>" + starpractice_addr + " {border:'1px blue solid';}</style>");
 
-		var ui = $('#' + starbiochem_state.element_id_starbiochem_ui);
+		var ui = $('#' + starpractice_state.element_id_starpractice_ui);
 		ui.append("<style>" + button_addr + " {background-color:rgba(0,122,0,0.6); position:absolute; top:10px; left:10px;}</style>");
 	}
 
 	function initialize_UI()
 	{
-		var element = $('#' + starbiochem_state.element_id);
-		element.append("<span id='" + starbiochem_state.element_id_starbiochem + "'></span>");
+		var element = $('#' + starpractice_state.element_id);
+		element.append("<span id='" + starpractice_state.element_id_starpractice + "'></span>");
 
-		var starbiochem = $('#' + starbiochem_state.element_id_starbiochem);
-		starbiochem.data("starbiochem_state", starbiochem_state);
-		starbiochem.append('<script type="text/javascript" src="jsmol/js/JSmoljQuery.js"></script> <script type="text/javascript" src="jsmol/js/JSmolCore.js"></script> <script type="text/javascript" src="jsmol/js/JSmol.js"></script> <script type="text/javascript" src="jsmol/js/JSmolApplet.js"></script> <script type="text/javascript" src="jsmol/js/JSmolControls.js"></script> <script type="text/javascript" src="jsmol/js/JSmolApi.js"></script> <script type="text/javascript" src="jsmol/js/j2sjmol.js"></script>');
-		starbiochem.append("<span id='" + starbiochem_state.element_id_starbiochem_jmol + "'></span>");
-		starbiochem.append("<span id='" + starbiochem_state.element_id_starbiochem_ui + "'></span>");
+		var starpractice = $('#' + starpractice_state.element_id_starpractice);
+		starpractice.data("starpractice_state", starpractice_state);
+		starpractice.append('<script type="text/javascript" src="StarPractice/jsmol/js/JSmoljQuery.js"></script> <script type="text/javascript" src="StarPractice/jsmol/js/JSmolCore.js"></script> <script type="text/javascript" src="StarPractice/jsmol/js/JSmol.js"></script> <script type="text/javascript" src="StarPractice/jsmol/js/JSmolApplet.js"></script> <script type="text/javascript" src="StarPractice/jsmol/js/JSmolControls.js"></script> <script type="text/javascript" src="StarPractice/jsmol/js/JSmolApi.js"></script> <script type="text/javascript" src="StarPractice/jsmol/js/j2sjmol.js"></script>');
+		starpractice.append("<span id='" + starpractice_state.element_id_starpractice_jmol + "'></span>");
+		starpractice.append("<span id='" + starpractice_state.element_id_starpractice_ui + "'></span>");
 
-//		var jmol = $('#' + starbiochem_state.element_id_starbiochem_jmol);
-		Jmol.setXHTML( starbiochem_state.element_id_starbiochem_jmol ) ;
-		starbiochem_state.jsmol = Jmol.getApplet(starbiochem_state.element_id_jmol, starbiochem_state);
+//		var jmol = $('#' + starpractice_state.element_id_starpractice_jmol);
+		Jmol.setXHTML( starpractice_state.element_id_starpractice_jmol ) ;
+		starpractice_state.jsmol = Jmol.getApplet(starpractice_state.element_id_jmol, starpractice_state);
 	}
 
 	

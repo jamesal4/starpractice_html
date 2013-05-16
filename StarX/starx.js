@@ -88,10 +88,12 @@ $(function(){
 				{
 					if( splits[i].indexOf( '{["StarX":' ) >= 0 )
 					{
+						console.info("Am I here?")
 						new_html += parse(splits[i]);
 					}
 					else
 					{
+						console.info("Am I there?")
 						new_html += splits[i] ;
 					}
 				}
