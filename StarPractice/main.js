@@ -1,5 +1,7 @@
+alert("top of main");
 define([], function() {
 	
+	alert("top of main define");
 	var starpractice_state;
 
 	function init_starpractice_state() 
@@ -117,6 +119,7 @@ define([], function() {
 	
 return {
 	configure: function( config ) {
+		alert("top of configure function in main config: \n" + config);
 		console.info("configure");
 		console.log(config);
 		parse_config(config);

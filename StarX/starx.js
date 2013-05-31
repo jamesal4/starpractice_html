@@ -1,4 +1,6 @@
+alert("Top of starx.js");
 $(function(){
+	alert("Top of $(function()... parse starx.js");
 	window._starx_debug = [] ;
 	//var base_url = 'http://starapp.mit.edu/test/';
 	var base_url = 'http://localhost:8002/StarX/';
@@ -16,11 +18,15 @@ $(function(){
 	
 	function load_require_js(callback)
 	{
+		alert("top of load_require_js");
 		var head = document.getElementsByTagName('head')[0];
+		alert("after head load_require_js head:\n" + head);
     		var script = document.createElement('script');
 		var url = base_url + 'require.js';
+    	alert("after url load_require_js url:\n" + url);
 		script.src = url;
 		head.appendChild(script);
+	   	alert("after head.append load_require_js script:\n" + script);
 //		document.body.appendChild(script);
 		wait_for_require(callback);
 	}
@@ -61,6 +67,7 @@ $(function(){
 	var in_load = false;
 	function load() 
 	{
+		alert("top of load() in starx.js");
 		if( in_load ) { return ; }
 		in_load = true;
 		var elements = [];
@@ -74,10 +81,13 @@ $(function(){
 			}
 		}
 		test_and_add( list[list.length-1] , elements ) ;
+		alert("in load() in starx.js");
 		$(elements).each( function() {
 			var element = $(this);
 			var html = element.html();
+			alert("in load() before window push in starx.js html:\n" + html);
 			window._starx_debug.push( element ) ;
+			alert("in load() after window push in starx.js");
 			if( html != null && html.indexOf( ']}' ) != -1 )
 			{
 				var matches = html.match( '(\\{\\["StarX":[^\\]]*\\]\\})' );
@@ -97,6 +107,7 @@ $(function(){
 						new_html += splits[i] ;
 					}
 				}
+				alert("in load() after window push in starx.js new_html:\n" + new_html);
 				element.html( new_html ) ;
 			}
 				
@@ -107,13 +118,17 @@ $(function(){
 	
 	function bind()
 	{
+		alert("top of bind in starx.js");
 		$('body').bind( 'DOMNodeInserted' , function(e) {
+			alert("In body.bind function in starx.js e.target:\n" + e.target + " changed.");
 			console.info( 'element' , e.target , ' changed.' ) ;
 			load();
 		});
+		alert("second load of bind in starx.js");
 		load();
+		alert("finished bind in starx.js");
 	}
-
+	alert("Start starx.js");
 	load_require_js(bind);
 
 });
