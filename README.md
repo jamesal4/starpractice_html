@@ -6,23 +6,19 @@ StarPractice is an educational tool that uses Deliberate Practice, Gap Analysis,
 
 To use starx you need the following (StarPractice example):
 
-	starx
-		- src
-			-- index.html (an example of how to start your star widget (e.g. StarPractice))
-			-- ... (other definitions of star widgets)
-			-- StarPractice.js (definition of StarPractice star widget)
-			-- StarX
-				require.js
-				starx.js
-				StarPractice.js (index.html tells StarX to load this star widget. StarPractice.js tells StarX where the StarPractice main.js is. 
-				... (other star widgets )
+	index.html is a minimal standalone version of StarPractice and is an example of how to use StarPractice in other html contexts.
+
+	StarX contains the essential StarX components:
+		- require.js contain the define, require functions needed by starx.js
+		- starx.js loads StarX widgets from the {[...]} StarX widget tag description.
+		- StarPractice.js (tells StarX where the StarPractice main.js is located) 
+		- (other StarX widgets similar in form to StarPractice.js)
 	
 	StarPractice (JavaScript for creating StarPractice UI)
 		- main.js
 		- other supporting js files for StarPractice
 		
 	TODO: The following is StarBiochem functionality and should be removed for StarPractice.
-		- index.html (need to replace this StarBiochem index.html with one for StarPractice)
 		- jsmol (essential stuff for JSmol)
 			-- data (files that can be loaded by JSmol
 			-- j2s (Jmol files converted to JavaScript)

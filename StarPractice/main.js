@@ -29,7 +29,7 @@ define([], function() {
 
 	function parse_config(config_obj) 
 	{
-//		alert("main.parse_config(" + config_obj + ")");
+		alert("main.parse_config(" + config_obj + ")");
 		starpractice_state = init_starpractice_state();
 		if(starpractice_state)
 		{
