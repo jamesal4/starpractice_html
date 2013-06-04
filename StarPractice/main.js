@@ -29,7 +29,7 @@ define([], function() {
 
 	function parse_config(config_obj) 
 	{
-		alert("main.parse_config(" + config_obj.toString() + ")");
+//		alert("main.parse_config(" + config_obj + ")");
 		starpractice_state = init_starpractice_state();
 		if(starpractice_state)
 		{
@@ -106,18 +106,18 @@ define([], function() {
 		starpractice.append("<span id='" + starpractice_state.element_id_starpractice_jmol + "'></span>");
 		starpractice.append("<span id='" + starpractice_state.element_id_starpractice_ui + "'></span>");
 
-		alert("main.initialize_UI() adding Jmol");
+//		alert("main.initialize_UI() adding Jmol");
 		Jmol.setXHTML( starpractice_state.element_id_starpractice_jmol ) ;
 		starpractice_state.jsmol = Jmol.getApplet(starpractice_state.element_id_jmol, starpractice_state);
-		alert("main.initialize_UI() starpractice.html: " + starpractice.html.toString());
+//		alert("main.initialize_UI() starpractice.html: " + starpractice.html);
 	}
 
 	
 return {
 	configure: function( config ) {
-		alert("main.configure id:" + config.element_id);
+//		alert("main.configure id:" + config.element_id);
 		parse_config(config);
 		initialize_UI();
-		alert("main.configure is complete");
+//		alert("main.configure is complete");
 	},
 }});

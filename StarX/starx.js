@@ -36,13 +36,13 @@ $(function(){
 //				requirejs.config({
 //					baseUrl: base_url 
 //			});
-			alert("starx.parse() id: " + data.StarX);
+//			alert("starx.parse() id: " + data.StarX);
 			require( ["StarX/"+data.StarX] , function( StarX ) { 
-				alert("starx.parse() in require: " + data.StarX);
+//				alert("starx.parse() in require: " + data.StarX);
 				StarX.configure(data);
-				alert("starx.parse() returning from call to " + data.StarX + ".configure(" + data.toString() + ")");
+//				alert("starx.parse() returning from call to " + data.StarX + ".configure(" + data + ")");
 			} ) ;
-			alert("starx.parse() IS RETURNING id: " + id);
+//			alert("starx.parse() IS RETURNING id: " + id);
 //			return "<span id='"+id+"'>" + str.substr(2, str.length - 4 ) + "</span>";
 			return "<span id='"+id+"'></span>";
 //			} else {
@@ -51,7 +51,7 @@ $(function(){
 //			}
 		} catch(e) {
 			return "STARX: ERROR PARSING: " + str.substr(2,str.length-4) + ":ERROR PARSING :STARX" ;
-			alert("starx.parse() ERROR PARSING: " + str.substr(2,str.length-4) + ":ERROR PARSING");
+//			alert("starx.parse() ERROR PARSING: " + str.substr(2,str.length-4) + ":ERROR PARSING");
 		}
 	}
 
@@ -60,7 +60,7 @@ $(function(){
 		if( $(element).parents().filter('.editor').length == 0 )
 		{
 			elements.push( element ) ;
-			alert("\nstarx.test_and_add() element: " + element.toString());
+//			alert("\nstarx.test_and_add() element: " + element);
 		}
 	}
 
@@ -93,9 +93,9 @@ $(function(){
 				{
 					if( splits[i].indexOf( '{["StarX":' ) >= 0 )
 					{
-						alert("starx.load() splits[" + i + "]: " + splits[i].toString());
+//						alert("starx.load() splits[" + i + "]: " + splits[i]);
 						new_html += parse(splits[i]);
-						alert("after parse starx.load() splits[" + i + "]: " + splits[i].toString());
+//						alert("after parse starx.load() splits[" + i + "]: " + splits[i]);
 
 					}
 					else
