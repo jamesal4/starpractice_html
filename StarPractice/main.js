@@ -1,7 +1,5 @@
-alert("top of main");
 define([], function() {
 	
-	alert("top of main define");
 	var starpractice_state;
 
 	function init_starpractice_state() 
@@ -31,13 +29,10 @@ define([], function() {
 
 	function parse_config(config_obj) 
 	{
-		console.info("parse_config");
-		console.log(config_obj);
+		alert("main.parse_config(" + config_obj.toString() + ")");
 		starpractice_state = init_starpractice_state();
-		console.log(starpractice_state);
 		if(starpractice_state)
 		{
-			console.info("parse_config defined");
 			starpractice_state.element_id = config_obj.element_id;
 			starpractice_state.width = config_obj.width ? config_obj.width : 300;
 			starpractice_state.height = config_obj.height ? config_obj.height : 300;
@@ -111,18 +106,18 @@ define([], function() {
 		starpractice.append("<span id='" + starpractice_state.element_id_starpractice_jmol + "'></span>");
 		starpractice.append("<span id='" + starpractice_state.element_id_starpractice_ui + "'></span>");
 
-//		var jmol = $('#' + starpractice_state.element_id_starpractice_jmol);
+		alert("main.initialize_UI() adding Jmol");
 		Jmol.setXHTML( starpractice_state.element_id_starpractice_jmol ) ;
 		starpractice_state.jsmol = Jmol.getApplet(starpractice_state.element_id_jmol, starpractice_state);
+		alert("main.initialize_UI() starpractice.html: " + starpractice.html.toString());
 	}
 
 	
 return {
 	configure: function( config ) {
-		alert("top of configure function in main config: \n" + config);
-		console.info("configure");
-		console.log(config);
+		alert("main.configure id:" + config.element_id);
 		parse_config(config);
 		initialize_UI();
+		alert("main.configure is complete");
 	},
 }});
