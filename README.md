@@ -21,7 +21,7 @@ To use starx you need the following (StarPractice example):
 		- main.js
 		- other supporting js files for StarPractice
 		
-	TODO: Stuff from StarBiochem that should be replaced by StarPractice functionality should be removed.
+	TODO: The following is StarBiochem functionality and should be removed for StarPractice.
 		- index.html (need to replace this StarBiochem index.html with one for StarPractice)
 		- jsmol (essential stuff for JSmol)
 			-- data (files that can be loaded by JSmol
