@@ -50,8 +50,8 @@ $(function(){
 //				return "REQUIRE NOT THERE" ;
 //			}
 		} catch(e) {
-			return "STARX: ERROR PARSING: " + str.substr(2,str.length-4) + ":ERROR PARSING :STARX" ;
 //			alert("starx.parse() ERROR PARSING: " + str.substr(2,str.length-4) + ":ERROR PARSING");
+			return "STARX: ERROR PARSING: " + str.substr(2,str.length-4) + ":ERROR PARSING :STARX" ;
 		}
 	}
 
