@@ -1,4 +1,4 @@
-define(['../StarPractice/main'], function (StarPractice) {
+define(['StarPractice/main'], function (StarPractice) {
     return {
         configure: function (config) {
 //        	alert("StarPractice.js:configure");
