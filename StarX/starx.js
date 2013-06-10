@@ -17,7 +17,7 @@ $(function(){
 	{
 		var head = document.getElementsByTagName('head')[0];
     	var script = document.createElement('script');
-		var url = base_url + 'require.js';
+		var url = base_url + 'StarX/require.js';
  		script.src = url;
 		head.appendChild(script);
 //		document.body.appendChild(script);

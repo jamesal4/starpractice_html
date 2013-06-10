@@ -24,6 +24,11 @@ define([], function() {
 		state.element_id_starpractice_jmol = state.element_id + "_starpractice_jmol";
 		state.element_id_starpractice_ui = state.element_id + "_starpractice_ui";
 		state.element_id_starpractice_ui_button = state.element_id + "_starpractice_ui_button";
+
+		state.element_id_starpractice_ui_text = state.element_id + "_starpractice_ui_text";
+		state.element_id_starpractice_ui_filename = state.element_id + "_starpractice_ui_filename";
+		state.element_id_starpractice_ui_authorizeButton = state.element_id + "_starpractice_ui_authorizeButton";
+		state.element_id_starpractice_ui_saveButton = state.element_id + "_starpractice_ui_saveButton";
 		return state;
 	}
 
@@ -51,8 +56,10 @@ define([], function() {
 		{
 			var ui = $('#' + starpractice_state.element_id_starpractice_ui);
 			ui.append(" <button id='" + starpractice_state.element_id_starpractice_ui_button + "'>starpractice_button</button>");
+
 			initialize_starpractice_UI_Behavior();
 			initialize_starpractice_UI_LAF();
+
 		}
 		else
 		{
@@ -110,9 +117,145 @@ define([], function() {
 		Jmol.setXHTML( starpractice_state.element_id_starpractice_jmol ) ;
 		starpractice_state.jsmol = Jmol.getApplet(starpractice_state.element_id_jmol, starpractice_state);
 //		alert("main.initialize_UI() starpractice.html: " + starpractice.html);
+
+			// added James' code here
+			starpractice.append(" <textarea id='<textarea id='text' rows=4 cols=50>Type here</textarea>");
+			starpractice.append(" <textarea id='<textarea id='fileName' rows=1 cols=25>Name your file here</textarea>");
+			starpractice.append(" <input type='button' id='authorizeButton' style='display:block' value='Authorize' />");
+			starpractice.append(" <input type='button' id='saveButton' style='display:block' value='Save To Drive' />");
+			alert("about to load google");
+			starpractice.append(' <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad'+starpractice_state.element_id+'"></script>');
+			alert("loaded to load google");
 	}
 
-	
+
+		// begin of James' JavaScript code
+      var CLIENT_ID = '223733049388-f547eova8cklqmmodmqnmjq9m20qepka.apps.googleusercontent.com';
+      var SCOPES = 'https://www.googleapis.com/auth/drive';
+      
+      function myFunction()
+      {
+      	alert("in myFunction");
+      	console.log("in the function");
+      }
+
+      //Called onload; begins authorization process
+      function handleClientLoad() 
+      {
+      	delete window['handleClientLoad'+starpractice_state.element_id];
+      	alert("in handleclientload");
+      	console.log("in handleclientload");
+        window.setTimeout(checkAuth, 1);
+      }
+      window['handleClientLoad'+starpractice_state.element_id] = handleClientLoad;
+      //Continues authorization
+      function checkAuth() 
+      {
+      	alert("in checkAuth");
+      	console.log("in checkAuth");
+        gapi.auth.authorize(
+            {'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': true},
+            handleAuthResult);
+            
+      }
+
+	  //If access token received, program can begin its functionality; else, it tries to authorize again
+      function handleAuthResult(authResult) 
+      {
+      	console.log("in handleAuthResult");
+        var authButton = document.getElementById('authorizeButton');
+        var saveButton = document.getElementById('saveButton');
+        authButton.style.display = 'none';
+        saveButton.style.display = 'none';
+        
+        if (authResult && !authResult.error) 
+        {
+          // Access token has been successfully retrieved, requests can be sent to the API.
+          console.log("in the if statement in auth result");
+          saveButton.style.display = 'block';
+          saveButton.onclick = uploadFile;
+          
+        } 
+        
+        else 
+        {
+          // No access token could be retrieved, show the button to start the authorization flow.
+          console.log("handle auth result else statement");
+          authButton.style.display = 'block';
+          authButton.onclick = function() 
+          {
+          	console.log("set auth button up");
+              gapi.auth.authorize(
+                  {'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': false},
+                  handleAuthResult);
+          };
+        }
+      }
+
+      //Starts upload of file
+      function uploadFile() 
+      {
+      	console.log("uploading");
+      	
+        gapi.client.load('drive', 'v2', insertFile);
+        
+        console.log("end of uploadfile");
+      }
+
+      //Uploads file
+      function insertFile(callback) 
+      {
+      	console.log("in insertFile");
+        const boundary = '-------314159265358979323846';
+        const delimiter = "\r\n--" + boundary + "\r\n";
+        const close_delim = "\r\n--" + boundary + "--";
+
+       
+        var contentType = 'application/octet-stream';
+        title = document.getElementById("fileName").value + ".txt";
+        var metadata = 
+        {
+        	
+            'title': title,
+            'mimeType': contentType
+        }
+
+          var base64Data = btoa(document.getElementById("text").value);
+          
+          console.log(base64Data);
+          
+          var multipartRequestBody =
+              delimiter +
+              'Content-Type: application/json\r\n\r\n' +
+              JSON.stringify(metadata) +
+              delimiter +
+              'Content-Type: ' + contentType + '\r\n' +
+              'Content-Transfer-Encoding: base64\r\n' +
+              '\r\n' +
+              base64Data +
+              close_delim;
+
+          var request = gapi.client.request({
+              'path': '/upload/drive/v2/files',
+              'method': 'POST',
+              'params': {'uploadType': 'multipart'},
+              'headers': 
+              {
+                'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+              },
+              'body': multipartRequestBody});
+          if (!callback) 
+          {
+          	console.log("we are in not callback");
+            callback = function(file) 
+            {
+              console.log(file)
+            };
+          }
+          request.execute(callback);
+       }
+		// end of James' JavaScript code
+      
 return {
 	configure: function( config ) {
 //		alert("main.configure id:" + config.element_id);
