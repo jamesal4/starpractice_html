@@ -38,8 +38,8 @@ define([], function() {
 		starpractice.data("starpractice_state", starpractice_state);
 		starpractice.append("<span id='" + starpractice_state.element_id_starpractice_ui + "'></span>");
 
-			starpractice.append(" <textarea id='<textarea id='text' rows=4 cols=50>Type here</textarea>");
-			starpractice.append(" <textarea id='<textarea id='fileName' rows=1 cols=25>Name your file here</textarea>");
+			starpractice.append(" <textarea id='text' rows=4 cols=50>Type here</textarea>");
+			starpractice.append(" <textarea id=fileName' rows=1 cols=25>Name your file here</textarea>");
 			starpractice.append(" <input type='button' id='authorizeButton' style='display:block' value='Authorize' />");
 			starpractice.append(" <input type='button' id='saveButton' style='display:block' value='Save To Drive' />");
       		window['handleClientLoad'+starpractice_state.element_id] = handleClientLoad;
